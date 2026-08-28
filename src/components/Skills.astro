@@ -1,0 +1,41 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { skillCategories, certification } from "../data/skills";
+---
+
+<section id="skills" class="mx-auto max-w-5xl px-6 py-24">
+    <SectionHeading eyebrow="What I work with" title="Skills" />
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+            skillCategories.map((category) => (
+                <div class="glass-card rounded-xl p-6">
+                    <p class="mb-4 font-mono text-xs uppercase tracking-widest text-accent-cyan">
+                        {category.name}
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        {category.items.map((item) => (
+                            <span class="rounded-full border border-border bg-bg-elevated px-3 py-1 font-mono text-xs text-text-primary">
+                                {item}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+
+    <div
+        class="glass-card mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl p-6"
+    >
+        <div>
+            <p class="font-semibold text-text-primary">{certification.title}</p>
+            <p class="text-sm text-text-muted">
+                {certification.issuer} &middot; {certification.location}
+            </p>
+        </div>
+        <span class="font-mono text-xs text-accent-cyan"
+            >{certification.period}</span
+        >
+    </div>
+</section>

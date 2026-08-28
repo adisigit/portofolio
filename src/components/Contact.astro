@@ -1,0 +1,51 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { profile } from "../data/profile";
+
+const links = [
+    { label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+    {
+        label: "Phone",
+        value: profile.phone,
+        href: `tel:${profile.phone.replace(/[^+\d]/g, "")}`,
+    },
+    {
+        label: "GitHub",
+        value: `@${profile.githubUsername}`,
+        href: profile.github,
+    },
+];
+---
+
+<section id="contact" class="mx-auto max-w-5xl px-6 py-24">
+    <SectionHeading eyebrow="Let's talk" title="Contact" />
+
+    <div class="glass-card rounded-xl p-8 text-center sm:p-12">
+        <p class="mx-auto mb-8 max-w-md text-balance text-text-muted">
+            Open to full stack roles and interesting collaborations. Reach out
+            through whichever channel works best for you.
+        </p>
+
+        <div
+            class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+        >
+            {
+                links.map((link) => (
+                    <a
+                        href={link.href}
+                        target={link.label === "GitHub" ? "_blank" : undefined}
+                        rel={
+                            link.label === "GitHub"
+                                ? "noopener noreferrer"
+                                : undefined
+                        }
+                        class="w-full rounded-md border border-border px-6 py-3 font-mono text-sm text-text-primary transition-colors hover:border-accent-cyan/40 hover:bg-bg-elevated sm:w-auto"
+                    >
+                        <span class="text-accent-cyan">{link.label}:</span>{" "}
+                        {link.value}
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</section>
