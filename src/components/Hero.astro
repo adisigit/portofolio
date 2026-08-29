@@ -6,19 +6,15 @@ import Image from "astro/components/Image.astro";
 
 <section
     id="hero"
-    class="relative flex min-h-screen items-center justify-center px-6 pt-24"
+    class="relative flex min-h-screen items-center justify-center px-6 pt-24 sm:px-8"
 >
     <div
-        class="mx-auto grid max-w-4xl items-center gap-12 md:grid-cols-[minmax(0,280px)_1fr]"
+        class="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-[minmax(0,300px)_1fr] md:gap-16"
     >
         <div class="mx-auto w-full max-w-55 md:max-w-none">
             <div
-                class="glass-card group relative aspect-1026/1384 overflow-hidden rounded-2xl"
+                class="card relative aspect-1026/1384 overflow-hidden shadow-layered"
             >
-                <div
-                    class="absolute -inset-1 -z-10 rounded-2xl bg-linear-to-br from-accent-cyan to-accent-violet opacity-40 blur-xl transition-opacity group-hover:opacity-60"
-                >
-                </div>
                 <Image
                     src={profileImg}
                     alt={profile.name}
@@ -29,39 +25,23 @@ import Image from "astro/components/Image.astro";
                 />
             </div>
         </div>
-
         <div class="text-center md:text-left">
-            <p class="mb-4 font-mono text-sm text-accent-cyan">Hi, I'm</p>
-
-            <h1 class="mb-4 text-4xl font-bold sm:text-6xl">
-                <span class="gradient-text">{profile.name}</span>
+            <p class="eyebrow mb-5">{profile.role}</p>
+            <h1
+                class="mb-6 text-[clamp(2.5rem,7vw,5rem)] font-semibold leading-[1.04] tracking-[-0.02em] text-ink"
+            >
+                {profile.name}
             </h1>
-
-            <p class="mb-3 text-lg font-medium text-text-primary sm:text-xl">
-                {profile.role}
-            </p>
-
             <p
-                class="mx-auto mb-10 max-w-xl text-balance text-text-muted md:mx-0"
+                class="mx-auto mb-10 max-w-xl text-balance text-lg leading-relaxed text-body-mid md:mx-0"
             >
                 {profile.tagline}
             </p>
-
             <div
                 class="flex flex-wrap items-center justify-center gap-4 md:justify-start"
             >
-                <a
-                    href="#projects"
-                    class="rounded-md bg-linear-to-r from-accent-cyan to-accent-violet px-6 py-3 text-sm font-semibold text-bg-base transition-transform hover:scale-[1.03]"
-                >
-                    View Projects
-                </a>
-                <a
-                    href="#contact"
-                    class="rounded-md border border-border px-6 py-3 text-sm font-semibold text-text-primary transition-colors hover:border-accent-cyan/40 hover:bg-bg-card"
-                >
-                    Contact
-                </a>
+                <a href="#projects" class="btn btn-primary"> View projects </a>
+                <a href="#contact" class="btn btn-secondary"> Contact </a>
             </div>
         </div>
     </div>

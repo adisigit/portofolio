@@ -1,0 +1,156 @@
+<canvas id="wave-bg" aria-hidden="true"></canvas>
+<style>
+    #wave-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: #ffffff;
+        pointer-events: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        #wave-bg {
+            display: none;
+        }
+    }
+</style>
+<script>
+    function initWaveBackground() {
+        const canvas = document.getElementById(
+            "wave-bg",
+        ) as HTMLCanvasElement | null;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+        if (prefersReducedMotion) return;
+
+        let width = 0;
+        let height = 0;
+        let dpr = Math.min(window.devicePixelRatio || 1, 2);
+        let rafId = 0;
+        let time = 0;
+
+        let scrollY = window.scrollY || 0;
+        let targetScrollY = scrollY;
+
+        const layers = [
+            {
+                amplitude: 40,
+                wavelength: 480,
+                speed: 0.25,
+                yRatio: 0.35,
+                opacity: 0.18,
+                width: 1.5,
+                parallax: 0.05,
+            },
+            {
+                amplitude: 55,
+                wavelength: 620,
+                speed: 0.18,
+                yRatio: 0.5,
+                opacity: 0.22,
+                width: 1.5,
+                parallax: 0.1,
+            },
+            {
+                amplitude: 30,
+                wavelength: 360,
+                speed: 0.32,
+                yRatio: 0.62,
+                opacity: 0.15,
+                width: 1,
+                parallax: 0.15,
+            },
+            {
+                amplitude: 65,
+                wavelength: 700,
+                speed: 0.12,
+                yRatio: 0.75,
+                opacity: 0.25,
+                width: 2,
+                parallax: 0.2,
+            },
+            {
+                amplitude: 25,
+                wavelength: 300,
+                speed: 0.4,
+                yRatio: 0.88,
+                opacity: 0.12,
+                width: 1,
+                parallax: 0.25,
+            },
+        ];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas!.width = width * dpr;
+            canvas!.height = height * dpr;
+            canvas!.style.width = `${width}px`;
+            canvas!.style.height = `${height}px`;
+            ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function onScroll() {
+            targetScrollY = window.scrollY || 0;
+        }
+
+        function drawWave(layer: (typeof layers)[number]) {
+            const baseY = height * layer.yRatio - scrollY * layer.parallax;
+            const phaseShift = scrollY * layer.parallax * 0.02;
+
+            ctx!.beginPath();
+            ctx!.moveTo(0, baseY);
+            const step = 6;
+            for (let x = 0; x <= width; x += step) {
+                const y =
+                    baseY +
+                    Math.sin(
+                        (x / layer.wavelength) * Math.PI * 2 +
+                            time * layer.speed +
+                            phaseShift,
+                    ) *
+                        layer.amplitude;
+                ctx!.lineTo(x, y);
+            }
+            ctx!.strokeStyle = `rgba(8, 8, 8, ${layer.opacity})`;
+            ctx!.lineWidth = layer.width;
+            ctx!.stroke();
+        }
+
+        function render() {
+            scrollY += (targetScrollY - scrollY) * 0.08;
+
+            ctx!.clearRect(0, 0, width, height);
+            for (const layer of layers) drawWave(layer);
+            time += 0.016;
+            rafId = requestAnimationFrame(render);
+        }
+
+        resize();
+        onScroll();
+        render();
+
+        window.addEventListener("resize", resize);
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        document.addEventListener("astro:before-swap", () => {
+            cancelAnimationFrame(rafId);
+            window.removeEventListener("resize", resize);
+            window.removeEventListener("scroll", onScroll);
+        });
+    }
+
+    document.addEventListener("astro:page-load", initWaveBackground);
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initWaveBackground);
+    } else {
+        initWaveBackground();
+    }
+</script>

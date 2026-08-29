@@ -3,29 +3,48 @@ import { profile } from "../data/profile";
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border px-6 py-8">
+<footer class="border-t border-hairline">
     <div
-        class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 sm:flex-row"
+        class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm text-body-mid sm:flex-row sm:px-8"
     >
-        <p class="text-sm text-text-muted">
-            &copy; {year}
-            {profile.name}. All rights reserved.
-        </p>
-        <div class="flex items-center gap-5 text-sm">
-            <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-text-muted transition-colors hover:text-accent-cyan"
-            >
-                GitHub
-            </a>
-            <a
-                href={`mailto:${profile.email}`}
-                class="text-text-muted transition-colors hover:text-accent-cyan"
-            >
-                Email
-            </a>
+        <p class="font-mono">{profile.githubUsername} &copy; {year}</p>
+        <div class="flex items-center gap-6">
+            {
+                profile.github && (
+                    <a
+                        href={profile.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="transition-colors hover:text-ink"
+                    >
+                        GitHub
+                    </a>
+                )
+            }
+            <!-- {
+                profile.socials?.linkedin && (
+                    <a
+                        href={profile.socials.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="transition-colors hover:text-ink"
+                    >
+                        LinkedIn
+                    </a>
+                )
+            }
+            {
+                profile.socials?.twitter && (
+                    <a
+                        href={profile.socials.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="transition-colors hover:text-ink"
+                    >
+                        Twitter
+                    </a>
+                )
+            } -->
         </div>
     </div>
 </footer>

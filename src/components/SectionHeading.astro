@@ -7,15 +7,13 @@ const { eyebrow, title } = Astro.props;
 ---
 
 <div class="mb-12 flex flex-col items-start gap-3">
-    <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-cyan">
-        {eyebrow}
-    </span>
-    <div class="flex items-center gap-4">
-        <h2 class="text-3xl font-bold text-text-primary sm:text-4xl">
+    <span class="eyebrow">{eyebrow}</span>
+    <div class="flex w-full items-center gap-6">
+        <h2
+            class="text-3xl font-semibold tracking-[-0.01em] text-ink sm:text-4xl"
+        >
             {title}
         </h2>
-        <span
-            class="h-px flex-1 max-w-20 bg-linear-to-r from-accent-cyan to-accent-violet"
-        ></span>
+        <span class="h-px flex-1 bg-hairline"></span>
     </div>
 </div>
