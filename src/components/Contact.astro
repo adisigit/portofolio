@@ -1,50 +1,50 @@
 ---
-import SectionHeading from "./SectionHeading.astro";
 import { profile } from "../data/profile";
-
-const links = [
-    { label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-    {
-        label: "Phone",
-        value: profile.phone,
-        href: `tel:${profile.phone.replace(/[^+\d]/g, "")}`,
-    },
-    {
-        label: "GitHub",
-        value: `@${profile.githubUsername}`,
-        href: profile.github,
-    },
-];
 ---
 
-<section id="contact" class="mx-auto max-w-5xl px-6 py-24">
-    <SectionHeading eyebrow="Let's talk" title="Contact" />
-
-    <div class="glass-card rounded-xl p-8 text-center sm:p-12">
-        <p class="mx-auto mb-8 max-w-md text-balance text-text-muted">
-            Open to full stack roles and interesting collaborations. Reach out
-            through whichever channel works best for you.
-        </p>
-
-        <div
-            class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+<section
+    id="contact"
+    class="mx-auto max-w-5xl border-t border-hairline px-6 py-24 sm:px-8"
+>
+    <div class="card flex flex-col items-start gap-6 p-10 sm:p-14">
+        <p class="eyebrow">Let's talk</p>
+        <h2
+            class="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.01em] text-ink sm:text-4xl"
         >
+            Have a role, a project, or just a question? I'd like to hear from
+            you.
+        </h2>
+        <p class="max-w-lg text-body-mid">
+            The fastest way to reach me is email. I try to reply within a couple
+            of days.
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+            <a href={`mailto:${profile.email}`} class="btn btn-primary">
+                {profile.email}
+            </a>
             {
-                links.map((link) => (
+                profile.github && (
                     <a
-                        href={link.href}
-                        target={link.label === "GitHub" ? "_blank" : undefined}
-                        rel={
-                            link.label === "GitHub"
-                                ? "noopener noreferrer"
-                                : undefined
-                        }
-                        class="w-full rounded-md border border-border px-6 py-3 font-mono text-sm text-text-primary transition-colors hover:border-accent-cyan/40 hover:bg-bg-elevated sm:w-auto"
+                        href={profile.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-secondary"
                     >
-                        <span class="text-accent-cyan">{link.label}:</span>{" "}
-                        {link.value}
+                        GitHub
                     </a>
-                ))
+                )
+            }
+            {
+                profile.phone && (
+                    <a
+                        href={`tel:${profile.phone}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-secondary"
+                    >
+                        {profile.phone}
+                    </a>
+                )
             }
         </div>
     </div>

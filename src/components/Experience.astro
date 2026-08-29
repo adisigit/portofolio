@@ -3,31 +3,30 @@ import SectionHeading from "./SectionHeading.astro";
 import { experience } from "../data/experience";
 ---
 
-<section id="experience" class="mx-auto max-w-5xl px-6 py-24">
+<section
+    id="experience"
+    class="mx-auto max-w-5xl border-t border-hairline px-6 py-24 sm:px-8"
+>
     <SectionHeading eyebrow="Where I've worked" title="Experience" />
-
-    <ol class="relative border-l border-border pl-8">
+    <ol class="relative border-l border-hairline pl-8">
         {
             experience.map((job) => (
                 <li class="mb-10 last:mb-0">
-                    <span class="absolute -left-1.75 mt-1.5 h-3 w-3 rounded-full bg-linear-to-r from-accent-cyan to-accent-violet" />
-
-                    <div class="glass-card rounded-xl p-6">
+                    <span class="absolute -left-1.75 mt-2 h-3 w-3 rounded-full border-2 border-canvas bg-ink" />
+                    <div class="card p-6">
                         <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
-                            <h3 class="font-semibold text-text-primary">
-                                {job.title}
-                            </h3>
-                            <span class="font-mono text-xs text-accent-cyan">
+                            <h3 class="font-semibold text-ink">{job.title}</h3>
+                            <span class="font-mono text-xs text-body-mid">
                                 {job.period}
                             </span>
                         </div>
-                        <p class="mb-4 text-sm text-text-muted">
+                        <p class="mb-4 text-sm text-body-mid">
                             {job.company} &middot; {job.location}
                         </p>
                         <ul class="space-y-2">
                             {job.highlights.map((point) => (
-                                <li class="flex gap-2 text-sm leading-relaxed text-text-muted">
-                                    <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent-violet" />
+                                <li class="flex gap-2 text-sm leading-relaxed text-body">
+                                    <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-mute" />
                                     {point}
                                 </li>
                             ))}

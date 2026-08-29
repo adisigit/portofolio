@@ -1,70 +1,114 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
 import { skillCategories, certification, skillIcons } from "../data/skills";
+
+const accents = [
+    {
+        hex: "#7a3dff",
+        chipActive: "bg-accent-purple text-white border-accent-purple",
+        barFill: "bg-accent-purple",
+    },
+    {
+        hex: "#ed52cb",
+        chipActive: "bg-accent-pink text-white border-accent-pink",
+        barFill: "bg-accent-pink",
+    },
+    {
+        hex: "#3b89ff",
+        chipActive: "bg-accent-blue text-white border-accent-blue",
+        barFill: "bg-accent-blue",
+    },
+    {
+        hex: "#ff6b00",
+        chipActive: "bg-accent-orange text-white border-accent-orange",
+        barFill: "bg-accent-orange",
+    },
+    {
+        hex: "#00d722",
+        chipActive: "bg-accent-green text-ink border-accent-green",
+        barFill: "bg-accent-green",
+    },
+];
 ---
 
-<section id="skills" class="mx-auto max-w-5xl px-6 py-24">
+<section
+    id="skills"
+    class="mx-auto max-w-5xl border-t border-hairline px-6 py-24 sm:px-8"
+>
     <SectionHeading eyebrow="What I work with" title="Skills" />
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+    <div class="card mb-5 flex items-center gap-4 p-6">
+        <img
+            id="skill-spotlight-image"
+            src=""
+            alt=""
+            class="h-10 w-10 shrink-0 object-contain opacity-0 transition-opacity duration-300"
+        />
         <div
-            class="glass-card flex flex-col items-center justify-center gap-3 rounded-xl p-6"
+            id="skill-spotlight-fallback"
+            class="flex h-10 min-w-14 shrink-0 items-center justify-center rounded border border-hairline px-3 font-mono text-xs text-ink opacity-0 transition-opacity duration-300"
         >
-            <img
-                id="skill-spotlight-image"
-                src=""
-                alt=""
-                class="h-14 w-14 object-contain opacity-0 transition-opacity duration-300"
-            />
-            <div
-                id="skill-spotlight-fallback"
-                class="flex h-8 min-w-14 items-center justify-center whitespace-nowrap rounded-full border border-border bg-bg-elevated px-4 font-mono text-xs text-text-primary opacity-0 transition-opacity duration-300"
-            >
-            </div>
-            <span
-                id="skill-spotlight-name"
-                class="font-mono text-xs text-text-primary"></span>
-            <span
-                id="skill-spotlight-category"
-                class="font-mono text-[10px] uppercase tracking-widest text-accent-cyan"
-            ></span>
         </div>
+        <span
+            id="skill-spotlight-swatch"
+            class="h-2.5 w-2.5 shrink-0 rounded-full"></span>
+        <div class="min-w-0">
+            <p id="skill-spotlight-name" class="truncate font-medium text-ink">
+            </p>
+            <p id="skill-spotlight-category" class="eyebrow-sm"></p>
+        </div>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
-            skillCategories.map((category, categoryIndex) => (
-                <div
-                    class="glass-card rounded-xl p-6"
-                    data-skill-card
-                    data-category-index={categoryIndex}
-                >
-                    <p class="mb-4 font-mono text-xs uppercase tracking-widest text-accent-cyan">
-                        {category.name}
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        {category.items.map((item, itemIndex) => (
+            skillCategories.map((category, categoryIndex) => {
+                const accent = accents[categoryIndex % accents.length];
+                return (
+                    <div
+                        class="card p-6"
+                        data-skill-card
+                        data-category-index={categoryIndex}
+                        data-color={accent.hex}
+                        data-chip-active={accent.chipActive}
+                        data-bar-fill={accent.barFill}
+                    >
+                        <p class="mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.09375rem] text-body-mid">
                             <span
-                                class="skill-pill rounded-full border border-border bg-bg-elevated px-3 py-1 font-mono text-xs text-text-primary transition-colors duration-300"
-                                data-item-index={itemIndex}
-                            >
-                                {item}
-                            </span>
-                        ))}
+                                class="h-1.5 w-1.5 rounded-full"
+                                style={`background-color:${accent.hex}`}
+                            />
+                            {category.name}
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            {category.items.map((item, itemIndex) => (
+                                <span
+                                    class="skill-pill rounded border border-hairline px-3 py-1 font-mono text-xs text-body-mid transition-colors duration-300"
+                                    data-item-index={itemIndex}
+                                >
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                        <div class="mt-4 h-1 w-full overflow-hidden rounded-full bg-hairline-soft">
+                            <div
+                                class={`skill-progress h-full w-0 ${accent.barFill}`}
+                            />
+                        </div>
                     </div>
-                    <div class="mt-4 h-1 w-full overflow-hidden rounded-full bg-bg-elevated">
-                        <div class="skill-progress h-full w-0 bg-accent-cyan" />
-                    </div>
-                </div>
-            ))
+                );
+            })
         }
     </div>
     <div
-        class="glass-card mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl p-6"
+        class="card mt-6 flex flex-wrap items-center justify-between gap-4 p-6"
     >
         <div>
-            <p class="font-semibold text-text-primary">{certification.title}</p>
-            <p class="text-sm text-text-muted">
+            <p class="font-semibold text-ink">{certification.title}</p>
+            <p class="text-sm text-body-mid">
                 {certification.issuer} &middot; {certification.location}
             </p>
         </div>
-        <span class="font-mono text-xs text-accent-cyan"
+        <span class="font-mono text-xs text-body-mid"
             >{certification.period}</span
         >
     </div>
@@ -77,6 +121,7 @@ import { skillCategories, certification, skillIcons } from "../data/skills";
         );
         const image = document.getElementById("skill-spotlight-image");
         const fallback = document.getElementById("skill-spotlight-fallback");
+        const swatch = document.getElementById("skill-spotlight-swatch");
         const nameLabel = document.getElementById("skill-spotlight-name");
         const categoryLabel = document.getElementById(
             "skill-spotlight-category",
@@ -86,6 +131,7 @@ import { skillCategories, certification, skillIcons } from "../data/skills";
             !cards.length ||
             !image ||
             !fallback ||
+            !swatch ||
             !nameLabel ||
             !categoryLabel
         )
@@ -97,12 +143,12 @@ import { skillCategories, certification, skillIcons } from "../data/skills";
         let activeItem = 0;
 
         function clearActivePills(card) {
+            const activeClasses = (card.dataset.chipActive || "")
+                .split(" ")
+                .filter(Boolean);
             card.querySelectorAll(".skill-pill").forEach((pill) => {
-                pill.classList.remove(
-                    "bg-accent-cyan",
-                    "text-bg-base",
-                    "border-accent-cyan",
-                );
+                pill.classList.remove(...activeClasses);
+                pill.classList.add("border-hairline");
             });
         }
 
@@ -117,13 +163,14 @@ import { skillCategories, certification, skillIcons } from "../data/skills";
         function showSkill(card, itemIndex, categoryName, totalItems) {
             const pills = card.querySelectorAll(".skill-pill");
             clearActivePills(card);
+            const activeClasses = (card.dataset.chipActive || "")
+                .split(" ")
+                .filter(Boolean);
             const pill = pills[itemIndex];
-            if (pill)
-                pill.classList.add(
-                    "bg-accent-cyan",
-                    "text-bg-base",
-                    "border-accent-cyan",
-                );
+            if (pill) {
+                pill.classList.remove("border-hairline");
+                pill.classList.add(...activeClasses);
+            }
 
             const skillName = pill ? pill.textContent.trim() : "";
             const iconUrl = skillIcons[skillName];
@@ -139,6 +186,8 @@ import { skillCategories, certification, skillIcons } from "../data/skills";
                 fallback.style.opacity = "1";
             }
 
+            swatch.style.backgroundColor =
+                card.dataset.color || "var(--color-ink)";
             nameLabel.textContent = skillName;
             categoryLabel.textContent = categoryName;
 
