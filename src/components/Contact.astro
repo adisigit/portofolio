@@ -8,9 +8,7 @@ import { profile } from "../data/profile";
 >
     <div class="card flex flex-col items-start gap-6 p-10 sm:p-14">
         <p class="eyebrow">Let's talk</p>
-        <h2
-            class="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.01em] text-ink sm:text-4xl"
-        >
+        <h2 class="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.01em] text-ink sm:text-4xl">
             Have a role, a project, or just a question? I'd like to hear from
             you.
         </h2>
@@ -22,30 +20,16 @@ import { profile } from "../data/profile";
             <a href={`mailto:${profile.email}`} class="btn btn-primary">
                 {profile.email}
             </a>
-            {
-                profile.github && (
-                    <a
-                        href={profile.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn btn-secondary"
-                    >
-                        GitHub
-                    </a>
-                )
-            }
-            {
-                profile.phone && (
-                    <a
-                        href={`tel:${profile.phone}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn btn-secondary"
-                    >
-                        {profile.phone}
-                    </a>
-                )
-            }
+            {profile.github && (
+                <a
+                    href={profile.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-secondary"
+                >
+                    GitHub
+                </a>
+            )}
         </div>
     </div>
 </section>
