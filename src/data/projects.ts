@@ -8,6 +8,17 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+	title: 'Beatify',
+	tech: ['Go', 'TypeScript', 'Astro', 'React', 'PostgreSQL', 'SeaweedFS', 'Docker'],
+	period: 'September 2026 — Present',
+	description: [
+		'Built a web app that turns a song and a few photos or videos into beat-synced short videos: it automatically picks the best 15–30 second section, detects beats, and suggests transitions (zoom, glitch, flash) per beat.',
+		'Developed a Go (gin/huma) backend with Google/GitHub OAuth and JWT access/refresh tokens, and an Astro + React (TypeScript) frontend with a canvas-based editor that renders 360p–720p exports in the browser using FFmpeg.wasm.',
+		'Designed a server-side 1080p export pipeline using presigned uploads to SeaweedFS object storage and a Node.js render worker, deployed with Docker/Podman and Cloudflare Tunnel on a self-hosted server.',
+	],
+	liveUrl: 'https://beatify.id',
+  },
 	{
 		title: 'CTX',
 		tech: ['Go', 'React', 'JWT/OAuth'],
